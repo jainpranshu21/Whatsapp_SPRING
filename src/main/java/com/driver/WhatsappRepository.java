@@ -84,7 +84,7 @@ public class WhatsappRepository {
 
     public String changeAdmin(User approver, User user, Group group) throws Exception {
         boolean check=false;
-        if(!groupMessageMap.containsKey(group))throw new Exception("Group does not exist");
+        if(!groupUserMap.containsKey(group))throw new Exception("Group does not exist");
         User user1=adminMap.get(group);
         if(user1!=user)throw new Exception("Approver does not have rights");
         List<User>users=groupUserMap.get(group);
