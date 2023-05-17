@@ -81,4 +81,17 @@ public class WhatsappRepository {
       int count=messages.size();
       return count;
     }
+
+    public String changeAdmin(User approver, User user, Group group) throws Exception {
+        boolean check=false;
+        if(!groupMessageMap.containsKey(group))throw new Exception("Group does not exist");
+        User user1=adminMap.get(group);
+        if(user1!=user)throw new Exception("Approver does not have rights");
+        List<User>users=groupUserMap.get(group);
+        for(User user2:users)
+            if(user2==user)check=true;
+        if(check=false)throw new Exception("User is not a participant");
+        adminMap.put(group,user);
+        return "SUCCESS";
+    }
 }

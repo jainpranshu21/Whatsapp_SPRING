@@ -60,7 +60,7 @@ public class WhatsappController {
 
         return whatsappService.sendMessage(message, sender, group);
     }
-  /*  @PutMapping("/change-admin")
+   @PutMapping("/change-admin")
     public String changeAdmin(User approver, User user, Group group) throws Exception{
         //Throw "Group does not exist" if the mentioned group does not exist
         //Throw "Approver does not have rights" if the approver is not the current admin of the group
@@ -70,7 +70,7 @@ public class WhatsappController {
         return whatsappService.changeAdmin(approver, user, group);
     }
 
-    @DeleteMapping("/remove-user")
+  /*  @DeleteMapping("/remove-user")
     public int removeUser(User user) throws Exception{
         //This is a bonus problem and does not contains any marks
         //A user belongs to exactly one group
