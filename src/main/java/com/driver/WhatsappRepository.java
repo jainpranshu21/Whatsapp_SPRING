@@ -10,11 +10,11 @@ public class WhatsappRepository {
 
     //Assume that each user belongs to at most one group
     //You can use the below mentioned hashmaps or delete these and create your own.
-    private HashMap<Group, List<User>> groupUserMap;
+    private HashMap<Group, List<User>> groupUserMap;  //to store group-list of users
     private HashMap<Group, List<Message>> groupMessageMap;
     private HashMap<Message, User> senderMap;
-    private HashMap<Group, User> adminMap;
-    private HashSet<String> userMobile;
+    private HashMap<Group, User> adminMap; //to store admin-user
+    private HashMap<String,User> userMobile; //to store mobno-->user
     private int customGroupCount;
     private int messageId;
 
@@ -23,15 +23,15 @@ public class WhatsappRepository {
         this.groupUserMap = new HashMap<Group, List<User>>();
         this.senderMap = new HashMap<Message, User>();
         this.adminMap = new HashMap<Group, User>();
-        this.userMobile = new HashSet<>();
+        this.userMobile = new HashMap<>();
         this.customGroupCount = 0;
         this.messageId = 0;
     }
     public String createUser (String name,String mobNo) throws Exception{
-        if(userMobile.contains(mobNo))
+        if(userMobile.containsKey(mobNo))
             throw new Exception("User already exists");
-        userMobile.add(mobNo);
         User user=new User(name,mobNo);
+        userMobile.put(mobNo,user);
         return "SUCCESS";
     }
     public Group createGroup(List<User> users){
@@ -45,6 +45,8 @@ public class WhatsappRepository {
         }
         String name=users.get(1).getName();
         Group group=new Group(name,2);
+        groupUserMap.put(group,users);
+        adminMap.put(group,users.get(0));
         return group;
     }
 

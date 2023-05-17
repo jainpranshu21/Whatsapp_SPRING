@@ -7,9 +7,36 @@ public class Message {
     private String content;
     private LocalDate timestamp;
 
+    public Message() {
+    }
+
     public Message(int messageId, String content, LocalDate now) {
         this.id=messageId;
         this.content=content;
         this.timestamp=now;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public LocalDate getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDate timestamp) {
+        this.timestamp = timestamp;
     }
 }
