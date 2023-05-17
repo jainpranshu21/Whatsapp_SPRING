@@ -58,23 +58,15 @@ public class WhatsappRepository {
 
     public int sendMessage(Message message, User sender, Group group) throws Exception{
         List<User>users=new ArrayList<>();
+        boolean check=true;
         if(!groupMessageMap.containsKey(group)){
             groupMessageMap.put(group,new ArrayList<>());
         }
-        boolean check1=false,check2=false;
-      for(Group group1:groupUserMap.keySet()){
-          if(group1==group){
-              users=groupUserMap.get(group1);
-              check1=true;
-          }
-      }
-      for(User user:users){
-          if(user==sender){
-              check2=true;
-          }
-      }
-      if(check1)throw new Exception("Group does not exist");
-      if(check2)throw new Exception("You are not allowed to send message");
+        if(!groupUserMap.containsKey(group))throw new Exception("Group does not exist");
+      users=groupUserMap.get(group);
+      for (User user:users)
+          if(user==sender)check=true;
+      if(check==false)throw new Exception("You are not allowed to send message");
       List<Message>messages=groupMessageMap.get(group);
       messages.add(message);
       groupMessageMap.put(group,messages);
@@ -86,11 +78,11 @@ public class WhatsappRepository {
         boolean check=false;
         if(!groupUserMap.containsKey(group))throw new Exception("Group does not exist");
         User user1=adminMap.get(group);
-        if(user1!=user)throw new Exception("Approver does not have rights");
+        if(user1!=approver)throw new Exception("Approver does not have rights");
         List<User>users=groupUserMap.get(group);
         for(User user2:users)
             if(user2==user)check=true;
-        if(check=false)throw new Exception("User is not a participant");
+        if(check==false)throw new Exception("User is not a participant");
         adminMap.put(group,user);
         return "SUCCESS";
     }
